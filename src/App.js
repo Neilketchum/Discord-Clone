@@ -2,14 +2,15 @@ import React from 'react';
 
 import './App.css';
 import Sidebar from './Sidebar';
+import Chat from './Chat';
 
 function App() {
   return (
    <div className = 'app'>
-     <h1>
-       <Sidebar></Sidebar>
-     </h1>
-    </div>
+     
+      <Sidebar/>
+      <Chat/>
+    </div> 
   );
 }
 
