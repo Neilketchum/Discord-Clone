@@ -6,7 +6,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HelpIcon from '@material-ui/icons/Help';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
-import { flexbox } from '@material-ui/system';
+
 const useStyles = makeStyles((theme) => ({
    ChatHeader:{
         display:"flex",

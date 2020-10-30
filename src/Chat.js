@@ -5,6 +5,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import GifIcon from '@material-ui/icons/Gif';
+import Messages from './Messages';
 const useStyles = makeStyles((theme) => ({
     chat: {
         display: "flex",
@@ -58,7 +59,7 @@ export default function Chat() {
 
 
             <div className={classes.chat__messages}>
-                VHat Messages
+                <Messages/>
             </div>
             <div className= {classes.chat__input}>
                 <AddCircleOutlineIcon fontSize="large" />
