@@ -21,10 +21,10 @@ function App() {
             displayName:authUser.displayName
           }))
       }else{
-          dispatch(logout)
+          dispatch(logout())
       }
     })
-  },[dispatch  ])
+  },[dispatch])
   return (
    <div className = 'app'>
      {

@@ -1,10 +1,11 @@
 import React from 'react'
 import './SidebarChannel.css'
-function SidebarChannel({id,channel}) {
+function SidebarChannel({id,channelName}) {
+    console.log(channelName)
     return (
         <div className = "SidebarChannel">
-            <h4>
-                <span className = 'SidebarChannel_hash'>#</span>YouTube
+            <h4 className = "sidebarChannel_channelName">
+               {channelName}
             </h4>
         </div>
     )

@@ -1,13 +1,14 @@
-.SidebarChannel:hover >h4{ 
-    display: flex;
-    padding-left:15px;
-    align-items: center;
-    background-color: #2f3135;
-    color: gray;
-    cursor: pointer;
-
+.sidebarChannel_channelName{
+   color: #99aab5;
+   padding-left: 30px;
+   cursor: pointer;
+   margin-top: 10px;
 }
-.SidebarChannel_hash{
-    font-size: 30px;
-    padding: 8px;
+.SidebarChannel{
+    padding: 5px;
+    padding-bottom: 8px;
+    padding-top:2px ;
+}
+.SidebarChannel:hover{
+    background-color: rgb(240, 240, 240,0.2) ;
 }

@@ -75,3 +75,19 @@
 .sidebar__avatar{
     backgroundColor: #d500f9,
 }
+.sidebar__signout{
+    height: 22px;
+    width: 180px;
+    font-size: 14px;
+    border: 0px solid black;
+    border-radius: 8px;
+    background-color:  #7289DA;
+    padding: 2px;
+    margin: 2px;
+    margin-top: 4px;
+    color: white;
+    cursor: pointer;
+}
+.sidebar__signout:hover{
+    background-color:#2C2F33
+}
