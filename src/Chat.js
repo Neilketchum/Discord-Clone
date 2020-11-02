@@ -1,79 +1,91 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import ChatHeader from './ChatHeader'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import GifIcon from '@material-ui/icons/Gif';
-import Messages from './Messages';
-const useStyles = makeStyles((theme) => ({
-    chat: {
-        display: "flex",
-        flexDirection: "column",
-        flex: "0.75",
-        width: "100%",
-        backgroundColor: "#3c3a3f",
-    },
 
-    chat__messages: {
-        flex:'1'
-    },
-    chat__input: {
-        color:"lightgray",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"space-between",
-        padding:"15px",
-        borderRadius:"15px",
-        margin:"20px",
-        borderTop:"1px solid gray",
-        backgroundColor:"#474b53",
-        "& form":{
-            flex:1,
-            "& input":{
-                padding:"15px",
-                background:"transparent",
-                border:"none",
-                outlineWidth:0,
-                color:"white",
-                fontSize:"large",
-                width:"100%"
-            }
-        }
+  
+import React, { useEffect, useState } from "react";
+import ChatHeader from "./ChatHeader";
+import Messages from "./Messages";
 
-    },
-    chat__inputIcons:{
-        ".MuiSvgIcon-root":{
-            padding:"5px"
-        }
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
+import GifIcon from "@material-ui/icons/Gif";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
-    },
-}));
-export default function Chat() {
-    const classes = useStyles();
-    return (
-        <div className={classes.chat}>
+import "./Chat.css";
+import { useSelector } from "react-redux";
+import { selectChannelId, selectchannelName } from "./features/appSlice";
+import { selectUser } from "./features/userSlice";
+import db from "./firebase";
+import firebase from "firebase";
 
-            <ChatHeader />
+function Chat() {
+  const user = useSelector(selectUser);
+  const channelId = useSelector(selectChannelId);
+  const channelName = useSelector(selectchannelName);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
 
+  useEffect(() => {
+    if (channelId) {
+      db.collection("channels")
+        .doc(channelId)
+        .collection("messages")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        );
+    }
+  }, [channelId]);
 
+  const sendMessage = (e) => {
+    e.preventDefault();
 
-            <div className={classes.chat__messages}>
-                <Messages/>
-            </div>
-            <div className= {classes.chat__input}>
-                <AddCircleOutlineIcon fontSize="large" />
-                <form>
-                    
-                    <input type="text" placeholder="Message " name="" id="" />
-                   
-                </form>
-                <div className={classes.chat__inputIcons}>
-                    <EmojiEmotionsIcon/>
-                    <GifIcon/>
-                    <CardGiftcardIcon/>
-                </div>
-            </div>
+    db.collection("channels").doc(channelId).collection("messages").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      message: input,
+      user: user,
+    });
+
+    setInput("");
+  };
+
+  return (
+    <div className="chat">
+      <ChatHeader channelName={channelName} />
+
+      <div className="chat__messages">
+        {messages.map((message) => (
+          <Messages
+            timestamp={message.timestamp}
+            message={message.message}
+            user={message.user}
+          />
+        ))}
+      </div>
+      <div className="chat__input">
+        <AddCircleIcon fontSize="large" />
+        <form>
+          <input
+            value={input}
+            disabled={!channelId}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={`Message #${channelName}`}
+          />
+          <button
+            className="chat__inputButton"
+            type="submit"
+            onClick={sendMessage}
+          >
+            Send Message
+          </button>
+        </form>
+
+        <div className="chat__inputIcons">
+          <CardGiftcardIcon fontSize="large" />
+          <GifIcon fontSize="large" />
+          <EmojiEmotionsIcon fontSize="large" />
         </div>
-    )
+      </div>
+    </div>
+  );
 }
+
+export default Chat;

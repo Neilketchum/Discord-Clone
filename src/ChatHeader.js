@@ -6,7 +6,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import HelpIcon from '@material-ui/icons/Help';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
-
 const useStyles = makeStyles((theme) => ({
    ChatHeader:{
         display:"flex",
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
    }
 
   }));
-export default function ChatHeader() {
+export default function ChatHeader({channelName} ) {
     const classes = useStyles();
     return (
         <div className = {classes.ChatHeader}>
@@ -69,7 +68,7 @@ export default function ChatHeader() {
                     <span className = {classes.ChatHeader__hash}>
                         #
                     </span>
-                    Test Channel Name
+                    {channelName} 
                 </h3>
             </div>
             <div className = {classes.ChatHeader__right}>

@@ -9,19 +9,18 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: deepPurple[500],
     },
   }));
-function Messages() {
+function Messages({timestamp,message,user}) {
     const classes = useStyles();
     return (
         <div className = "message">
-            <Avatar className = {classes.purple}/>
+            <Avatar src  = {user.photo}/>
             <div className  = "message__info">
                 <h4>
                    Neilketchum       <span className="message__timestamp">
-                    TimeStamp
+                   
                 </span> 
                 </h4>
-          
-                <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates, fuga.</p>
+                {message}
             </div>
         </div>
     )
